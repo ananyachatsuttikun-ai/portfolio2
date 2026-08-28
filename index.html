@@ -1,0 +1,2962 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portfolio | Ananya Chatsuttikun</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* ==================================================
+           01. ROOT & RESET
+        ================================================== */
+
+        :root {
+            --primary: #7895d2;
+            --primary-dark: #536fae;
+            --secondary: #a7c7e7;
+            --accent: #c6b4e8;
+            --pink: #e8c5d8;
+
+            --bg: #f7f9fc;
+            --bg-soft: #eef4fb;
+            --white: #ffffff;
+
+            --text: #27334a;
+            --text-light: #68748a;
+
+            --border: rgba(83, 111, 174, 0.12);
+
+            --shadow:
+                0 15px 45px rgba(65, 86, 125, 0.10);
+
+            --gradient:
+                linear-gradient(
+                    135deg,
+                    #7895d2 0%,
+                    #9bb9df 45%,
+                    #c6b4e8 100%
+                );
+
+            --radius: 24px;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+
+        html {
+            scroll-padding-top: 90px;
+        }
+
+
+        body {
+            font-family: "Prompt", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+
+        h1,
+        h2,
+        h3,
+        h4,
+        nav,
+        button {
+            font-family: "Kanit", sans-serif;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        ul {
+            list-style: none;
+        }
+
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+
+        .container {
+            width: min(1120px, 90%);
+            margin: auto;
+        }
+
+
+        /* ==================================================
+           02. PRELOADER
+        ================================================== */
+
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity .6s ease, visibility .6s ease;
+        }
+
+
+        .loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+
+        .loader-content {
+            text-align: center;
+        }
+
+
+        .loader-circle {
+            width: 55px;
+            height: 55px;
+            border: 4px solid #dce6f4;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: auto auto 15px;
+        }
+
+
+        .loader p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* ==================================================
+           03. NAVIGATION
+        ================================================== */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 78px;
+
+            display: flex;
+            align-items: center;
+
+            background: rgba(255, 255, 255, .84);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid transparent;
+
+            z-index: 1000;
+
+            transition: .3s ease;
+        }
+
+
+        .navbar.scrolled {
+            height: 70px;
+            background: rgba(255, 255, 255, .95);
+            border-bottom-color: var(--border);
+            box-shadow: 0 8px 30px rgba(50, 70, 110, .07);
+        }
+
+
+        .nav-inner {
+            width: min(1120px, 90%);
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: 1px;
+        }
+
+
+        .logo span {
+            color: var(--accent);
+        }
+
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+
+        .nav-links a {
+            position: relative;
+            font-size: 15px;
+            color: var(--text);
+            transition: .3s;
+        }
+
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -7px;
+            width: 0;
+            height: 2px;
+            border-radius: 10px;
+            background: var(--primary);
+            transition: .3s;
+        }
+
+
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+
+        .menu-toggle {
+            display: none;
+            border: none;
+            background: none;
+            font-size: 28px;
+            color: var(--primary-dark);
+            cursor: pointer;
+        }
+
+
+        /* ==================================================
+           04. HERO
+        ================================================== */
+
+        .hero {
+            min-height: 100vh;
+            padding: 140px 0 90px;
+
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(198, 180, 232, .35),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 5% 80%,
+                    rgba(167, 199, 231, .30),
+                    transparent 30%
+                ),
+                var(--bg);
+        }
+
+
+        .hero::before {
+            content: "";
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            border-radius: 50%;
+
+            background: rgba(232, 197, 216, .20);
+
+            right: -180px;
+            bottom: -180px;
+        }
+
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+
+        .hero-text {
+            animation: fadeUp .9s ease both;
+        }
+
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 16px;
+            border-radius: 50px;
+
+            background: rgba(120, 149, 210, .10);
+            color: var(--primary-dark);
+
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+
+        .hero-label::before {
+            content: "✦";
+            color: var(--accent);
+        }
+
+
+        .hero h1 {
+            font-size: clamp(45px, 6vw, 76px);
+            line-height: 1.08;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .hero-nickname {
+            color: var(--primary-dark);
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+
+        .hero-description {
+            max-width: 650px;
+            color: var(--text-light);
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            padding: 12px 24px;
+
+            border-radius: 50px;
+
+            font-family: "Kanit", sans-serif;
+            font-size: 15px;
+
+            cursor: pointer;
+            transition: .3s ease;
+        }
+
+
+        .btn-primary {
+            color: white;
+            background: var(--gradient);
+            box-shadow: 0 12px 30px rgba(83, 111, 174, .22);
+        }
+
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 35px rgba(83, 111, 174, .30);
+        }
+
+
+        .btn-outline {
+            color: var(--primary-dark);
+            border: 1px solid rgba(83, 111, 174, .30);
+            background: rgba(255, 255, 255, .7);
+        }
+
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+
+        /* HERO VISUAL */
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+
+            animation: fadeUp 1.1s .2s ease both;
+        }
+
+
+        .profile-frame {
+            width: 350px;
+            height: 440px;
+
+            border-radius: 180px 180px 35px 35px;
+
+            padding: 10px;
+
+            background: linear-gradient(
+                145deg,
+                #dce8f6,
+                #c7d9ef,
+                #e5d8ef
+            );
+
+            box-shadow:
+                0 30px 70px rgba(72, 93, 130, .20);
+        }
+
+
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+
+            border-radius: 170px 170px 27px 27px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #edf4fb,
+                    #f4edf8
+                );
+
+            color: var(--primary-dark);
+        }
+
+
+        .profile-placeholder .camera-icon {
+            font-size: 72px;
+            margin-bottom: 12px;
+        }
+
+
+        .profile-placeholder strong {
+            font-family: "Kanit";
+            font-size: 18px;
+        }
+
+
+        .profile-placeholder span {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+
+        .floating-card {
+            position: absolute;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 12px 17px;
+
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(10px);
+
+            border-radius: 16px;
+
+            box-shadow: var(--shadow);
+
+            font-size: 13px;
+
+            animation: floating 4s ease-in-out infinite;
+        }
+
+
+        .floating-card.camera {
+            top: 45px;
+            left: -25px;
+        }
+
+
+        .floating-card.design {
+            bottom: 55px;
+            right: -35px;
+            animation-delay: 1.3s;
+        }
+
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* ==================================================
+           05. SECTION COMMON
+        ================================================== */
+
+        section {
+            padding: 100px 0;
+        }
+
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+
+        .section-heading .eyebrow {
+            color: var(--primary-dark);
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+
+        .section-heading h2 {
+            font-size: 40px;
+            line-height: 1.2;
+            margin-top: 6px;
+            color: var(--text);
+        }
+
+
+        .section-heading p {
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+
+        /* ==================================================
+           06. ABOUT
+        ================================================== */
+
+        .about {
+            background: var(--white);
+        }
+
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+
+        .about-card {
+            position: relative;
+
+            padding: 45px;
+
+            border-radius: var(--radius);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #edf4fb,
+                    #f4eef8
+                );
+
+            overflow: hidden;
+        }
+
+
+        .about-card::after {
+            content: "✦";
+
+            position: absolute;
+            right: 25px;
+            top: 10px;
+
+            font-size: 120px;
+            color: rgba(120, 149, 210, .08);
+        }
+
+
+        .about-card h3 {
+            position: relative;
+            z-index: 1;
+
+            font-size: 29px;
+            margin-bottom: 18px;
+        }
+
+
+        .about-card p {
+            position: relative;
+            z-index: 1;
+
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+
+        .personal-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+
+        .info-item {
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background: var(--bg);
+
+            border: 1px solid var(--border);
+        }
+
+
+        .info-item .icon {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+
+        .info-item small {
+            display: block;
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+
+        .info-item strong {
+            display: block;
+            font-family: "Kanit";
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+
+        /* ==================================================
+           07. INTEREST
+        ================================================== */
+
+        .interest {
+            background: var(--bg-soft);
+        }
+
+
+        .interest-content {
+            max-width: 850px;
+            margin: auto;
+
+            text-align: center;
+
+            padding: 50px;
+
+            border-radius: 30px;
+
+            background: var(--white);
+
+            box-shadow: var(--shadow);
+        }
+
+
+        .interest-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: auto auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 20px;
+
+            background: linear-gradient(
+                135deg,
+                #e5edf8,
+                #eee4f6
+            );
+
+            font-size: 34px;
+        }
+
+
+        .interest-content h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+
+        .interest-content p {
+            color: var(--text-light);
+        }
+
+
+        .interest-tags {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+
+        .interest-tags span {
+            padding: 7px 14px;
+            border-radius: 50px;
+
+            background: #eef3fb;
+            color: var(--primary-dark);
+
+            font-size: 13px;
+        }
+
+
+        /* ==================================================
+           08. SKILLS
+        ================================================== */
+
+        .skills {
+            background: var(--white);
+        }
+
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+
+        .skill-card {
+            padding: 28px 20px;
+
+            border-radius: 20px;
+
+            background: var(--bg);
+
+            border: 1px solid transparent;
+
+            transition: .35s ease;
+        }
+
+
+        .skill-card:hover {
+            transform: translateY(-7px);
+
+            border-color: var(--border);
+
+            background: white;
+
+            box-shadow: var(--shadow);
+        }
+
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #eaf1fa;
+
+            font-size: 24px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .skill-card h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+
+        .skill-card p {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+
+        .skill-bar {
+            width: 100%;
+            height: 5px;
+
+            margin-top: 15px;
+
+            border-radius: 10px;
+
+            background: #e3e9f2;
+
+            overflow: hidden;
+        }
+
+
+        .skill-progress {
+            height: 100%;
+
+            width: 0;
+
+            border-radius: 10px;
+
+            background: var(--gradient);
+
+            transition: width 1.5s ease;
+        }
+
+
+        /* ==================================================
+           09. PROJECTS
+        ================================================== */
+
+        .projects {
+            background: var(--bg-soft);
+        }
+
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+
+        .project-card {
+            overflow: hidden;
+
+            border-radius: var(--radius);
+
+            background: var(--white);
+
+            box-shadow: 0 10px 35px rgba(65, 86, 125, .07);
+
+            transition: .35s ease;
+        }
+
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+        }
+
+
+        .project-image {
+            height: 245px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .project-image.one {
+            background:
+                linear-gradient(
+                    135deg,
+                    #b8cbe7,
+                    #d7c8e8
+                );
+        }
+
+
+        .project-image.two {
+            background:
+                linear-gradient(
+                    135deg,
+                    #c4dce8,
+                    #e9cad9
+                );
+        }
+
+
+        .project-image-icon {
+            font-size: 80px;
+            filter: drop-shadow(0 10px 15px rgba(50, 60, 90, .12));
+        }
+
+
+        .project-label {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+
+            padding: 6px 12px;
+
+            border-radius: 50px;
+
+            background: rgba(255, 255, 255, .75);
+
+            backdrop-filter: blur(8px);
+
+            font-size: 12px;
+            color: var(--primary-dark);
+        }
+
+
+        .project-info {
+            padding: 30px;
+        }
+
+
+        .project-number {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+
+        .project-info h3 {
+            font-size: 24px;
+            margin: 5px 0 12px;
+        }
+
+
+        .project-info p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+
+        .project-tags span {
+            padding: 5px 11px;
+
+            border-radius: 50px;
+
+            background: #edf3fa;
+
+            color: var(--primary-dark);
+
+            font-size: 11px;
+        }
+
+
+        /* ==================================================
+           10. ACTIVITIES
+        ================================================== */
+
+        .activities {
+            background: var(--white);
+        }
+
+
+        .timeline {
+            position: relative;
+
+            max-width: 850px;
+
+            margin: auto;
+        }
+
+
+        .timeline::before {
+            content: "";
+
+            position: absolute;
+
+            left: 24px;
+            top: 0;
+            bottom: 0;
+
+            width: 2px;
+
+            background: linear-gradient(
+                to bottom,
+                var(--secondary),
+                var(--accent)
+            );
+        }
+
+
+        .timeline-item {
+            position: relative;
+
+            display: grid;
+            grid-template-columns: 50px 1fr;
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .timeline-dot {
+            position: relative;
+            z-index: 2;
+
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: white;
+
+            border: 3px solid #dce7f4;
+
+            box-shadow: 0 5px 20px rgba(60, 80, 120, .08);
+        }
+
+
+        .timeline-content {
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background: var(--bg);
+
+            border: 1px solid var(--border);
+        }
+
+
+        .timeline-content .date {
+            font-size: 12px;
+            color: var(--primary-dark);
+        }
+
+
+        .timeline-content h3 {
+            font-size: 20px;
+            margin: 3px 0 8px;
+        }
+
+
+        .timeline-content p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+
+        /* ==================================================
+           11. GOAL
+        ================================================== */
+
+        .goal {
+            background: var(--bg-soft);
+        }
+
+
+        .goal-box {
+            max-width: 900px;
+            margin: auto;
+
+            padding: 55px;
+
+            border-radius: 30px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #607fbf,
+                    #849fd3,
+                    #a99bd0
+                );
+
+            position: relative;
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 60px rgba(76, 102, 155, .22);
+        }
+
+
+        .goal-box::before {
+            content: "✦";
+
+            position: absolute;
+
+            right: 20px;
+            top: -80px;
+
+            font-size: 250px;
+
+            opacity: .08;
+        }
+
+
+        .goal-box h3 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+
+        .goal-box p {
+            position: relative;
+            max-width: 750px;
+            color: rgba(255,255,255,.9);
+        }
+
+
+        /* ==================================================
+           12. CONTACT
+        ================================================== */
+
+        .contact {
+            background: #26344c;
+            color: white;
+        }
+
+
+        .contact .section-heading h2 {
+            color: white;
+        }
+
+
+        .contact .section-heading p {
+            color: #c4ccda;
+        }
+
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+
+        .contact-card {
+            padding: 35px;
+
+            border-radius: 25px;
+
+            background: rgba(255,255,255,.06);
+
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+
+        .contact-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+
+        .contact-card > p {
+            color: #bfc8d7;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            background: rgba(255,255,255,.06);
+
+            margin-bottom: 10px;
+
+            transition: .3s;
+        }
+
+
+        .social-link:hover {
+            background: rgba(255,255,255,.12);
+            transform: translateX(5px);
+        }
+
+
+        .social-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,.1);
+
+            font-size: 20px;
+        }
+
+
+        .social-link small {
+            display: block;
+            color: #9eaabd;
+            font-size: 11px;
+        }
+
+
+        .social-link strong {
+            font-family: "Kanit";
+            font-weight: 400;
+        }
+
+
+        .contact-quote {
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            text-align: center;
+
+            padding: 40px;
+        }
+
+
+        .contact-quote .quote-icon {
+            font-size: 50px;
+            color: #b9c9e6;
+            margin-bottom: 15px;
+        }
+
+
+        .contact-quote h3 {
+            font-size: 27px;
+            margin-bottom: 10px;
+        }
+
+
+        .contact-quote p {
+            color: #bfc8d7;
+            font-size: 14px;
+        }
+
+
+        /* ==================================================
+           13. FOOTER
+        ================================================== */
+
+        footer {
+            padding: 25px;
+
+            text-align: center;
+
+            background: #1d283b;
+
+            color: #9da8b9;
+
+            font-size: 12px;
+        }
+
+
+        footer span {
+            color: #c2d1eb;
+        }
+
+
+        /* ==================================================
+           14. REVEAL ANIMATION
+        ================================================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition:
+                opacity .8s ease,
+                transform .8s ease;
+        }
+
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* ==================================================
+           15. RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 950px) {
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+
+            .hero-visual {
+                margin-top: 20px;
+            }
+
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                height: 70px;
+            }
+
+
+            .menu-toggle {
+                display: block;
+            }
+
+
+            .nav-links {
+                position: absolute;
+
+                top: 70px;
+                left: 0;
+
+                width: 100%;
+
+                padding: 25px;
+
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                background: rgba(255,255,255,.97);
+                backdrop-filter: blur(15px);
+
+                transform: translateY(-150%);
+                transition: .4s ease;
+
+                box-shadow: 0 15px 30px rgba(40,60,90,.08);
+            }
+
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+
+            .hero {
+                padding-top: 120px;
+            }
+
+
+            .profile-frame {
+                width: 280px;
+                height: 355px;
+            }
+
+
+            .floating-card.camera {
+                left: -10px;
+            }
+
+
+            .floating-card.design {
+                right: -10px;
+            }
+
+
+            section {
+                padding: 75px 0;
+            }
+
+
+            .section-heading {
+                margin-bottom: 40px;
+            }
+
+
+            .section-heading h2 {
+                font-size: 32px;
+            }
+
+
+            .about-card {
+                padding: 30px;
+            }
+
+
+            .personal-info {
+                grid-template-columns: 1fr;
+            }
+
+
+            .interest-content {
+                padding: 35px 25px;
+            }
+
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .project-image {
+                height: 210px;
+            }
+
+
+            .timeline::before {
+                left: 19px;
+            }
+
+
+            .timeline-item {
+                grid-template-columns: 40px 1fr;
+                gap: 15px;
+            }
+
+
+            .timeline-dot {
+                width: 40px;
+                height: 40px;
+            }
+
+
+            .timeline-content {
+                padding: 20px;
+            }
+
+
+            .goal-box {
+                padding: 35px 25px;
+            }
+
+
+            .goal-box h3 {
+                font-size: 27px;
+            }
+
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 430px) {
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+
+            .hero-nickname {
+                font-size: 19px;
+            }
+
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+
+            .btn {
+                width: 100%;
+            }
+
+
+            .hero-buttons {
+                width: 100%;
+            }
+
+
+            .profile-frame {
+                width: 245px;
+                height: 315px;
+            }
+
+
+            .floating-card {
+                font-size: 11px;
+                padding: 9px 12px;
+            }
+
+
+            .floating-card.camera {
+                left: -5px;
+            }
+
+
+            .floating-card.design {
+                right: -5px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         LOADER
+    ================================================== -->
+
+    <div class="loader" id="loader">
+
+        <div class="loader-content">
+
+            <div class="loader-circle"></div>
+
+            <p>กำลังเตรียม Portfolio...</p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         NAVIGATION
+    ================================================== -->
+
+    <header class="navbar" id="navbar">
+
+        <div class="nav-inner">
+
+            <a href="#home" class="logo">
+                ANANYA<span>.</span>
+            </a>
+
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="เปิดเมนู"
+            >
+                ☰
+            </button>
+
+
+            <nav>
+
+                <ul class="nav-links" id="navLinks">
+
+                    <li>
+                        <a href="#home">หน้าแรก</a>
+                    </li>
+
+                    <li>
+                        <a href="#about">About</a>
+                    </li>
+
+                    <li>
+                        <a href="#skills">Skills</a>
+                    </li>
+
+                    <li>
+                        <a href="#projects">Projects</a>
+                    </li>
+
+                    <li>
+                        <a href="#activities">Activities</a>
+                    </li>
+
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         HERO
+    ================================================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <div class="container hero-content">
+
+
+                <div class="hero-text">
+
+                    <div class="hero-label">
+                        STUDENT PORTFOLIO
+                    </div>
+
+
+                    <h1>
+                        สวัสดีค่ะ<br>
+                        ฉันชื่อ <span>อนัญญา</span>
+                    </h1>
+
+
+                    <div class="hero-nickname">
+                        “บาย” • นักเรียน ม.4
+                    </div>
+
+
+                    <p class="hero-description">
+
+                        นักเรียนที่มีความสนใจด้านนิเทศศิลป์
+                        การถ่ายภาพ และการออกแบบเพื่อการสื่อสารด้วยภาพ
+                        ฉันชอบค้นหามุมมองใหม่ ๆ และถ่ายทอดเรื่องราว
+                        ผ่านภาพและวิดีโอ
+
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#contact"
+                            class="btn btn-primary"
+                        >
+                            ติดต่อฉัน
+                            →
+                        </a>
+
+
+                        <a
+                            href="#projects"
+                            class="btn btn-outline"
+                        >
+                            ดูผลงาน
+                            ✦
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="hero-visual">
+
+                    <div class="profile-frame">
+
+                        <!--
+                            สามารถเปลี่ยนส่วนนี้เป็นรูปจริงได้ เช่น
+
+                            <img src="profile.jpg"
+                                 alt="อนัญญา ชาตสุทธิกุล"
+                                 style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+
+                        -->
+
+                        <div class="profile-placeholder">
+
+                            <div class="camera-icon">
+                                📷
+                            </div>
+
+                            <strong>
+                                YOUR PHOTO
+                            </strong>
+
+                            <span>
+                                ใส่รูปโปรไฟล์ของบายตรงนี้
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-card camera">
+
+                        📸
+                        <span>
+                            Photography
+                        </span>
+
+                    </div>
+
+
+                    <div class="floating-card design">
+
+                        ✦
+                        <span>
+                            Creative Mind
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             ABOUT ME
+        ================================================== -->
+
+        <section class="about" id="about">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="eyebrow">
+                        ABOUT ME
+                    </div>
+
+                    <h2>
+                        เกี่ยวกับฉัน
+                    </h2>
+
+                    <p>
+                        ทำความรู้จักกับตัวตน ความสนใจ และสิ่งที่ฉันชอบ
+                    </p>
+
+                </div>
+
+
+
+                <div class="about-grid">
+
+
+                    <div class="about-card reveal">
+
+                        <h3>
+                            เปลี่ยนความคิด<br>
+                            ให้กลายเป็นภาพ
+                        </h3>
+
+                        <p>
+                            สวัสดีค่ะ ฉันชื่อ
+                            <strong>นางสาว อนัญญา ชาตสุทธิกุล</strong>
+                            ชื่อเล่น “บาย”
+                        </p>
+
+                        <p>
+                            ปัจจุบันกำลังศึกษาอยู่ระดับชั้น
+                            มัธยมศึกษาปีที่ 4
+                            โรงเรียนสามร้อยยอดวิทยาคม
+                        </p>
+
+                        <p>
+                            ฉันสนใจในสายนิเทศศิลป์
+                            โดยเฉพาะการออกแบบเพื่อการสื่อสารด้วยภาพ
+                            สัญลักษณ์ การถ่ายภาพ และความคิดสร้างสรรค์
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="personal-info reveal">
+
+                        <div class="info-item">
+
+                            <div class="icon">👩🏻‍🎓</div>
+
+                            <small>ชื่อ</small>
+
+                            <strong>
+                                อนัญญา ชาตสุทธิกุล
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <div class="icon">✨</div>
+
+                            <small>ชื่อเล่น</small>
+
+                            <strong>
+                                บาย
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <div class="icon">📚</div>
+
+                            <small>ระดับชั้น</small>
+
+                            <strong>
+                                ม.4
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <div class="icon">🏫</div>
+
+                            <small>โรงเรียน</small>
+
+                            <strong>
+                                สามร้อยยอดวิทยาคม
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <div class="icon">🎨</div>
+
+                            <small>สายที่สนใจ</small>
+
+                            <strong>
+                                นิเทศศิลป์
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <div class="icon">📷</div>
+
+                            <small>ความชอบ</small>
+
+                            <strong>
+                                Photography
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             INTEREST
+        ================================================== -->
+
+        <section class="interest">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="eyebrow">
+                        MY INTEREST
+                    </div>
+
+                    <h2>
+                        สิ่งที่ฉันสนใจ
+                    </h2>
+
+                </div>
+
+
+                <div class="interest-content reveal">
+
+                    <div class="interest-icon">
+                        🎨
+                    </div>
+
+                    <h3>
+                        Visual Communication
+                    </h3>
+
+                    <p>
+
+                        ฉันสนใจการออกแบบเพื่อการสื่อสารด้วยภาพ
+                        สัญลักษณ์ และความคิดสร้างสรรค์
+                        รวมถึงการใช้ภาพถ่ายและวิดีโอในการเล่าเรื่อง
+                        เพื่อทำให้สิ่งที่ต้องการสื่อสามารถเข้าใจได้ง่าย
+                        และมีความน่าสนใจ
+
+                    </p>
+
+
+                    <div class="interest-tags">
+
+                        <span>
+                            Visual Design
+                        </span>
+
+                        <span>
+                            Photography
+                        </span>
+
+                        <span>
+                            Video
+                        </span>
+
+                        <span>
+                            Storytelling
+                        </span>
+
+                        <span>
+                            Creative
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             SKILLS
+        ================================================== -->
+
+        <section class="skills" id="skills">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="eyebrow">
+                        MY SKILLS
+                    </div>
+
+                    <h2>
+                        ทักษะของฉัน
+                    </h2>
+
+                    <p>
+                        ทักษะที่ได้ฝึกฝนจากการเรียนรู้และการลงมือทำจริง
+                    </p>
+
+                </div>
+
+
+
+                <div class="skills-grid">
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            🖼️
+                        </div>
+
+                        <h3>
+                            การจัดองค์ประกอบภาพ
+                        </h3>
+
+                        <p>
+                            การจัดวางองค์ประกอบให้ภาพมีความสมดุลและน่าสนใจ
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="88%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            📷
+                        </div>
+
+                        <h3>
+                            การตั้งค่ากล้อง
+                        </h3>
+
+                        <p>
+                            เรียนรู้การควบคุมค่ากล้องให้เหมาะกับสถานการณ์
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="82%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            💡
+                        </div>
+
+                        <h3>
+                            การควบคุมแสง
+                        </h3>
+
+                        <p>
+                            ใช้แสงเพื่อสร้างอารมณ์และบรรยากาศให้กับภาพ
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="78%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            👁️
+                        </div>
+
+                        <h3>
+                            มุมมองที่แตกต่าง
+                        </h3>
+
+                        <p>
+                            ค้นหามุมใหม่ ๆ เพื่อทำให้ภาพมีเอกลักษณ์
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="90%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            🎬
+                        </div>
+
+                        <h3>
+                            การเล่าเรื่อง
+                        </h3>
+
+                        <p>
+                            ถ่ายทอดเรื่องราวผ่านภาพและวิดีโอ
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="82%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            ✨
+                        </div>
+
+                        <h3>
+                            การแต่งภาพ
+                        </h3>
+
+                        <p>
+                            ปรับสี แสง และบรรยากาศให้เข้ากับแนวคิด
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="80%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            ⚡
+                        </div>
+
+                        <h3>
+                            ความว่องไว
+                        </h3>
+
+                        <p>
+                            ทำงานและตัดสินใจได้รวดเร็วในสถานการณ์จริง
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="92%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="skill-card reveal">
+
+                        <div class="skill-icon">
+                            🧩
+                        </div>
+
+                        <h3>
+                            แก้ปัญหาเฉพาะหน้า
+                        </h3>
+
+                        <p>
+                            สามารถปรับตัวและหาวิธีแก้ปัญหาได้ทันที
+                        </p>
+
+                        <div class="skill-bar">
+                            <div
+                                class="skill-progress"
+                                data-width="90%"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             PROJECTS
+        ================================================== -->
+
+        <section class="projects" id="projects">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="eyebrow">
+                        MY PROJECTS
+                    </div>
+
+                    <h2>
+                        ผลงานที่เคยทำ
+                    </h2>
+
+                    <p>
+                        ประสบการณ์การทำงานจริงในทีมตากล้องของโรงเรียน
+                    </p>
+
+                </div>
+
+
+
+                <div class="projects-grid">
+
+
+                    <!-- PROJECT 01 -->
+
+                    <article class="project-card reveal">
+
+                        <div class="project-image one">
+
+                            <span class="project-label">
+                                PROJECT 01
+                            </span>
+
+                            <div class="project-image-icon">
+                                🎥
+                            </div>
+
+                        </div>
+
+
+                        <div class="project-info">
+
+                            <div class="project-number">
+                                01 / SCHOOL EVENT
+                            </div>
+
+                            <h3>
+                                กิจกรรมกีฬาสี
+                            </h3>
+
+                            <p>
+
+                                เคยร่วมเป็นทีมตากล้องของโรงเรียน
+                                ในการถ่ายวิดีโองานกิจกรรมกีฬาสี
+                                ของโรงเรียนสามร้อยยอดวิทยาคม
+                                ได้ฝึกการทำงานเป็นทีม การเลือกมุมกล้อง
+                                และการเก็บช่วงเวลาสำคัญของกิจกรรม
+
+                            </p>
+
+
+                            <div class="project-tags">
+
+                                <span>Video</span>
+                                <span>Camera</span>
+                                <span>Teamwork</span>
+                                <span>School Event</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- PROJECT 02 -->
+
+                    <article class="project-card reveal">
+
+                        <div class="project-image two">
+
+                            <span class="project-label">
+                                PROJECT 02
+                            </span>
+
+                            <div class="project-image-icon">
+                                🎬
+                            </div>
+
+                        </div>
+
+
+                        <div class="project-info">
+
+                            <div class="project-number">
+                                02 / CAMP ACTIVITY
+                            </div>
+
+                            <h3>
+                                กิจกรรมค่าย ม.2
+                            </h3>
+
+                            <p>
+
+                                เคยร่วมเป็นทีมตากล้องของโรงเรียน
+                                ในการถ่ายวิดีโอกิจกรรมค่าย ม.2
+                                ได้ฝึกการเก็บภาพบรรยากาศ
+                                การถ่ายทอดกิจกรรมและเรื่องราว
+                                รวมถึงการทำงานร่วมกับผู้อื่น
+
+                            </p>
+
+
+                            <div class="project-tags">
+
+                                <span>Video</span>
+                                <span>Storytelling</span>
+                                <span>Photography</span>
+                                <span>Teamwork</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             ACTIVITIES & ACHIEVEMENTS
+        ================================================== -->
+
+        <section class="activities" id="activities">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="eyebrow">
+                        ACTIVITIES & ACHIEVEMENTS
+                    </div>
+
+                    <h2>
+                        กิจกรรมและผลงานเด่น
+                    </h2>
+
+                    <p>
+                        ประสบการณ์ที่ช่วยพัฒนาทักษะของฉัน
+                    </p>
+
+                </div>
+
+
+
+                <div class="timeline">
+
+
+                    <div class="timeline-item reveal">
+
+                        <div class="timeline-dot">
+                            📷
+                        </div>
+
+
+                        <div class="timeline-content">
+
+                            <div class="date">
+                                SCHOOL ACTIVITY
+                            </div>
+
+                            <h3>
+                                ทีมตากล้องของโรงเรียน
+                            </h3>
+
+                            <p>
+
+                                มีประสบการณ์เป็นส่วนหนึ่งของทีมตากล้อง
+                                ของโรงเรียน เพื่อถ่ายวิดีโอกิจกรรมต่าง ๆ
+                                ทำให้ได้ฝึกการทำงานร่วมกับผู้อื่น
+                                การเลือกมุมกล้อง และการทำงานภายใต้สถานการณ์จริง
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="timeline-item reveal">
+
+                        <div class="timeline-dot">
+                            🎥
+                        </div>
+
+
+                        <div class="timeline-content">
+
+                            <div class="date">
+                                HIGHLIGHT EXPERIENCE
+                            </div>
+
+                            <h3>
+                                ถ่ายวิดีโอกิจกรรมกีฬาสี
+                            </h3>
+
+                            <p>
+
+                                ได้ร่วมเก็บภาพและวิดีโอช่วงเวลาสำคัญ
+                                ของกิจกรรมกีฬาสี
+                                ฝึกความว่องไวในการทำงาน
+                                และการแก้ปัญหาเฉพาะหน้า
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="timeline-item reveal">
+
+                        <div class="timeline-dot">
+                            🎬
+                        </div>
+
+
+                        <div class="timeline-content">
+
+                            <div class="date">
+                                CAMP ACTIVITY
+                            </div>
+
+                            <h3>
+                                ถ่ายวิดีโอกิจกรรมค่าย ม.2
+                            </h3>
+
+                            <p>
+
+                                ได้ร่วมทีมตากล้องในการบันทึกกิจกรรมค่าย
+                                เรียนรู้การเล่าเรื่องผ่านภาพ
+                                และการเก็บบรรยากาศของกิจกรรม
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             FUTURE GOAL
+        ================================================== -->
+
+        <section class="goal">
+
+            <div class="container">
+
+                <div class="goal-box reveal">
+
+                    <h3>
+                        เป้าหมายในอนาคต ✦
+                    </h3>
+
+                    <p>
+
+                        ในอนาคตฉันอยากเป็น “ตากล้องอิสระ”
+                        เพราะที่บ้านมีธุรกิจอยู่แล้ว
+                        ฉันจึงอยากให้งานตากล้องเป็นงานอดิเรก
+                        ที่ได้ทำสิ่งที่ตัวเองชอบ
+                        ได้สร้างสรรค์ผลงาน และได้เก็บเรื่องราว
+                        ผ่านมุมมองของตัวเอง
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             CONTACT
+        ================================================== -->
+
+        <section class="contact" id="contact">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div class="eyebrow">
+                        CONTACT
+                    </div>
+
+                    <h2>
+                        Let's Connect
+                    </h2>
+
+                    <p>
+                        หากสนใจผลงานหรืออยากพูดคุย สามารถติดต่อฉันได้
+                    </p>
+
+                </div>
+
+
+
+                <div class="contact-grid">
+
+
+                    <div class="contact-card reveal">
+
+                        <h3>
+                            ช่องทางการติดต่อ
+                        </h3>
+
+                        <p>
+                            สามารถติดตามผลงานและพูดคุยกับฉันผ่านช่องทางต่าง ๆ
+                        </p>
+
+
+                        <!--
+                            ใส่ URL Instagram จริงใน href ได้ภายหลัง
+                        -->
+
+                        <a
+                            href="#"
+                            class="social-link"
+                            onclick="showContactMessage(event, 'Instagram')"
+                        >
+
+                            <div class="social-icon">
+                                ◎
+                            </div>
+
+                            <div>
+
+                                <small>
+                                    INSTAGRAM
+                                </small>
+
+                                <strong>
+                                    Ananya Chatsuttikun
+                                </strong>
+
+                            </div>
+
+                        </a>
+
+
+                        <!--
+                            ใส่ URL Facebook จริงใน href ได้ภายหลัง
+                        -->
+
+                        <a
+                            href="#"
+                            class="social-link"
+                            onclick="showContactMessage(event, 'Facebook')"
+                        >
+
+                            <div class="social-icon">
+                                f
+                            </div>
+
+                            <div>
+
+                                <small>
+                                    FACEBOOK
+                                </small>
+
+                                <strong>
+                                    Ananya chatsuttikun
+                                </strong>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+
+                    <div class="contact-card contact-quote reveal">
+
+                        <div class="quote-icon">
+                            “
+                        </div>
+
+                        <h3>
+                            Capture the moment.
+                        </h3>
+
+                        <p>
+
+                            เพราะทุกช่วงเวลามีเรื่องราว
+                            และทุกภาพสามารถเล่าเรื่องได้
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer>
+
+        © <span id="year"></span>
+        Ananya Chatsuttikun
+        • Student Portfolio
+        • Sam Roi Yot Wittayakom School
+
+    </footer>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+        /* ==================================================
+           PAGE LOADER
+        ================================================== */
+
+        window.addEventListener("load", () => {
+
+            const loader = document.getElementById("loader");
+
+            setTimeout(() => {
+
+                loader.classList.add("hide");
+
+            }, 500);
+
+        });
+
+
+
+        /* ==================================================
+           MOBILE MENU
+        ================================================== */
+
+        const menuToggle =
+            document.getElementById("menuToggle");
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+
+        menuToggle.addEventListener("click", () => {
+
+            navLinks.classList.toggle("active");
+
+            if (navLinks.classList.contains("active")) {
+
+                menuToggle.textContent = "✕";
+
+            } else {
+
+                menuToggle.textContent = "☰";
+
+            }
+
+        });
+
+
+        /* ปิดเมนูเมื่อเลือก Navigation */
+
+        document
+            .querySelectorAll(".nav-links a")
+            .forEach(link => {
+
+                link.addEventListener("click", () => {
+
+                    navLinks.classList.remove("active");
+
+                    menuToggle.textContent = "☰";
+
+                });
+
+            });
+
+
+
+        /* ==================================================
+           NAVBAR SCROLL EFFECT
+        ================================================== */
+
+        const navbar =
+            document.getElementById("navbar");
+
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 40) {
+
+                navbar.classList.add("scrolled");
+
+            } else {
+
+                navbar.classList.remove("scrolled");
+
+            }
+
+        });
+
+
+
+        /* ==================================================
+           REVEAL ANIMATION
+        ================================================== */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+
+        const revealOnScroll = () => {
+
+            const windowHeight =
+                window.innerHeight;
+
+
+            revealElements.forEach(element => {
+
+                const elementTop =
+                    element.getBoundingClientRect().top;
+
+
+                if (elementTop < windowHeight - 80) {
+
+                    element.classList.add("active");
+
+                }
+
+            });
+
+        };
+
+
+        window.addEventListener(
+            "scroll",
+            revealOnScroll
+        );
+
+
+        revealOnScroll();
+
+
+
+        /* ==================================================
+           SKILL BAR ANIMATION
+        ================================================== */
+
+        const skillBars =
+            document.querySelectorAll(".skill-progress");
+
+
+        const animateSkills = () => {
+
+            skillBars.forEach(bar => {
+
+                const rect =
+                    bar.getBoundingClientRect();
+
+
+                if (
+                    rect.top <
+                    window.innerHeight - 80
+                ) {
+
+                    const width =
+                        bar.getAttribute("data-width");
+
+                    bar.style.width = width;
+
+                }
+
+            });
+
+        };
+
+
+        window.addEventListener(
+            "scroll",
+            animateSkills
+        );
+
+
+        animateSkills();
+
+
+
+        /* ==================================================
+           CURRENT YEAR
+        ================================================== */
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+
+        /* ==================================================
+           CONTACT MESSAGE
+        ================================================== */
+
+        function showContactMessage(event, platform) {
+
+            event.preventDefault();
+
+            alert(
+                "สามารถใส่ลิงก์ " +
+                platform +
+                " จริงของคุณใน href ของปุ่มนี้ได้เลยค่ะ 😊"
+            );
+
+        }
+
+
+
+        /* ==================================================
+           ACTIVE NAVIGATION
+        ================================================== */
+
+        const sections =
+            document.querySelectorAll("section[id]");
+
+        const navItems =
+            document.querySelectorAll(".nav-links a");
+
+
+        window.addEventListener("scroll", () => {
+
+            let current = "";
+
+            sections.forEach(section => {
+
+                const sectionTop =
+                    section.offsetTop - 150;
+
+                const sectionHeight =
+                    section.offsetHeight;
+
+                if (
+                    window.scrollY >= sectionTop &&
+                    window.scrollY <
+                    sectionTop + sectionHeight
+                ) {
+
+                    current =
+                        section.getAttribute("id");
+
+                }
+
+            });
+
+
+            navItems.forEach(link => {
+
+                link.style.color = "";
+
+                if (
+                    link.getAttribute("href") ===
+                    "#" + current
+                ) {
+
+                    link.style.color =
+                        "var(--primary-dark)";
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
